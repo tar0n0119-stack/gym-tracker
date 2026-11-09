@@ -1,5 +1,7 @@
 package hu.aron.gymtracker.domain;
 
+import hu.aron.gymtracker.domain.exception.InvalidWorkoutException;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,10 +14,10 @@ public class Workout implements Comparable<Workout> {
 
     public Workout(LocalDate date) {
         if (date == null) {
-            throw new IllegalArgumentException("Workout date cannot be empty");
+            throw new InvalidWorkoutException("Workout date cannot be empty");
         }
         if (date.isAfter(LocalDate.now())) {
-            throw new IllegalArgumentException("Workout date cannot be in the future");
+            throw new InvalidWorkoutException("Workout date cannot be in the future");
         }
         this.date = date;
     }
@@ -26,7 +28,7 @@ public class Workout implements Comparable<Workout> {
 
     public void addExercise(Exercise exercise) {
         if (exercise == null) {
-            throw new IllegalArgumentException("Exercise cannot be null");
+            throw new InvalidWorkoutException("Exercise cannot be null");
         }
         exercises.add(exercise);
     }

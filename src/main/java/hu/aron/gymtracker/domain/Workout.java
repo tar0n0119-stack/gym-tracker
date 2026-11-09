@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Workout implements Comparable<Workout> {
+public class Workout implements Identifiable, Comparable<Workout> {
 
+    private int id;
     private final LocalDate date;
     private final List<Exercise> exercises = new ArrayList<>();
 
@@ -20,6 +21,19 @@ public class Workout implements Comparable<Workout> {
             throw new InvalidWorkoutException("Workout date cannot be in the future");
         }
         this.date = date;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        if (id <= 0) {
+            throw new InvalidWorkoutException("Workout id must be positive");
+        }
+        this.id = id;
     }
 
     public LocalDate getDate() {
@@ -52,7 +66,7 @@ public class Workout implements Comparable<Workout> {
 
     @Override
     public String toString() {
-        return String.format("Workout on %s (%d exercises, total volume: %.1f)",
-                date, exercises.size(), getTotalVolume());
+        return String.format("#%d Workout on %s (%d exercises, total volume: %.1f)",
+                id, date, exercises.size(), getTotalVolume());
     }
 }

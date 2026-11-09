@@ -7,9 +7,8 @@ public class BodyweightExercise extends Exercise {
 
     public BodyweightExercise(String name, int sets, int reps) {
         super(name);
-        if (sets <= 0 || reps <= 0) {
-            throw new IllegalArgumentException("Sets and reps must be greater than zero");
-        }
+        requirePositive(sets, "Sets");
+        requirePositive(reps, "Reps");
         this.sets = sets;
         this.reps = reps;
     }

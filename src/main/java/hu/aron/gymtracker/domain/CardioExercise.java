@@ -7,12 +7,8 @@ public class CardioExercise extends Exercise {
 
     public CardioExercise(String name, double distanceKm, int durationMin) {
         super(name);
-        if (distanceKm <= 0) {
-            throw new IllegalArgumentException("Distance must be greater than zero");
-        }
-        if (durationMin <= 0) {
-            throw new IllegalArgumentException("Duration must be greater than zero");
-        }
+        requirePositive(distanceKm, "Distance");
+        requirePositive(durationMin, "Duration");
         this.distanceKm = distanceKm;
         this.durationMin = durationMin;
     }

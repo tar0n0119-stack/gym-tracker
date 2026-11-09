@@ -1,5 +1,7 @@
 package hu.aron.gymtracker.domain;
 
+import hu.aron.gymtracker.domain.exception.InvalidExerciseException;
+
 public class StrengthExercise extends Exercise {
 
     private final int sets;
@@ -8,11 +10,10 @@ public class StrengthExercise extends Exercise {
 
     public StrengthExercise(String name, int sets, int reps, double weightKg) {
         super(name);
-        if (sets <= 0 || reps <= 0) {
-            throw new IllegalArgumentException("Sets and reps must be greater than zero");
-        }
+        requirePositive(sets, "Sets");
+        requirePositive(reps, "Reps");
         if (weightKg < 0) {
-            throw new IllegalArgumentException("Weight cannot be negative");
+            throw new InvalidExerciseException("Weight cannot be negative (got " + weightKg + ")");
         }
         this.sets = sets;
         this.reps = reps;

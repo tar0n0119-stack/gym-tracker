@@ -11,26 +11,23 @@ import hu.aron.gymtracker.persistence.StorageException;
 import hu.aron.gymtracker.service.WorkoutNotFoundException;
 import hu.aron.gymtracker.service.WorkoutService;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.Scanner;
 
 public class ConsoleMenu {
 
     private final WorkoutService service;
-    private final Scanner scanner;
+    private final InputReader input;
 
-    public ConsoleMenu(WorkoutService service, Scanner scanner) {
+    public ConsoleMenu(WorkoutService service, InputReader input) {
         this.service = service;
-        this.scanner = scanner;
+        this.input = input;
     }
 
     public void run() {
         boolean running = true;
         while (running) {
             printMenu();
-            String choice = scanner.nextLine().trim();
+            String choice = input.readText("Choose: ");
             try {
                 switch (choice) {
                     case "1" -> logWorkout();
@@ -39,11 +36,7 @@ public class ConsoleMenu {
                     case "0" -> running = !saveAndExit();
                     default -> System.out.println("Unknown option, try again.");
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid number.");
-            } catch (DateTimeParseException e) {
-                System.out.println("Please enter the date as yyyy-mm-dd.");
-            } catch (InvalidExerciseException | InvalidWorkoutException | WorkoutNotFoundException e) {
+            } catch (InvalidWorkoutException | WorkoutNotFoundException e) {
                 System.out.println("Error: " + e.getMessage());
             }
         }
@@ -56,22 +49,17 @@ public class ConsoleMenu {
         System.out.println("2. List workouts");
         System.out.println("3. Delete workout");
         System.out.println("0. Save and exit");
-        System.out.print("Choose: ");
     }
 
     private void logWorkout() {
-        System.out.print("Date (yyyy-mm-dd, empty for today): ");
-        String dateText = scanner.nextLine().trim();
-        LocalDate date = dateText.isEmpty() ? LocalDate.now() : LocalDate.parse(dateText);
-        Workout workout = new Workout(date);
+        Workout workout = new Workout(input.readDate("Date (yyyy-mm-dd, empty for today): "));
 
         boolean adding = true;
         while (adding) {
             System.out.println("Add exercise: 1. Strength  2. Cardio  3. Bodyweight  0. Done");
-            System.out.print("Choose: ");
-            String type = scanner.nextLine().trim();
+            String type = input.readText("Choose: ");
             switch (type) {
-                case "1", "2", "3" -> workout.addExercise(readExercise(type));
+                case "1", "2", "3" -> addExercise(workout, type);
                 case "0" -> adding = false;
                 default -> System.out.println("Unknown option, try again.");
             }
@@ -85,33 +73,29 @@ public class ConsoleMenu {
         System.out.println("Saved: " + saved);
     }
 
+    private void addExercise(Workout workout, String type) {
+        try {
+            Exercise exercise = readExercise(type);
+            workout.addExercise(exercise);
+            System.out.println("Added: " + exercise);
+        } catch (InvalidExerciseException e) {
+            System.out.println("Exercise not added: " + e.getMessage());
+        }
+    }
+
     private Exercise readExercise(String type) {
-        System.out.print("Name: ");
-        String name = scanner.nextLine();
+        String name = input.readText("Name: ");
         return switch (type) {
-            case "1" -> {
-                System.out.print("Sets: ");
-                int sets = Integer.parseInt(scanner.nextLine().trim());
-                System.out.print("Reps: ");
-                int reps = Integer.parseInt(scanner.nextLine().trim());
-                System.out.print("Weight (kg): ");
-                double weight = Double.parseDouble(scanner.nextLine().trim());
-                yield new StrengthExercise(name, sets, reps, weight);
-            }
-            case "2" -> {
-                System.out.print("Distance (km): ");
-                double distance = Double.parseDouble(scanner.nextLine().trim());
-                System.out.print("Duration (min): ");
-                int duration = Integer.parseInt(scanner.nextLine().trim());
-                yield new CardioExercise(name, distance, duration);
-            }
-            default -> {
-                System.out.print("Sets: ");
-                int sets = Integer.parseInt(scanner.nextLine().trim());
-                System.out.print("Reps: ");
-                int reps = Integer.parseInt(scanner.nextLine().trim());
-                yield new BodyweightExercise(name, sets, reps);
-            }
+            case "1" -> new StrengthExercise(name,
+                    input.readInt("Sets: "),
+                    input.readInt("Reps: "),
+                    input.readDouble("Weight (kg): "));
+            case "2" -> new CardioExercise(name,
+                    input.readDouble("Distance (km): "),
+                    input.readInt("Duration (min): "));
+            default -> new BodyweightExercise(name,
+                    input.readInt("Sets: "),
+                    input.readInt("Reps: "));
         };
     }
 
@@ -130,8 +114,7 @@ public class ConsoleMenu {
     }
 
     private void deleteWorkout() {
-        System.out.print("Workout id to delete: ");
-        int id = Integer.parseInt(scanner.nextLine().trim());
+        int id = input.readInt("Workout id to delete: ");
         service.deleteWorkout(id);
         System.out.println("Workout #" + id + " deleted.");
     }
@@ -143,8 +126,7 @@ public class ConsoleMenu {
             return true;
         } catch (StorageException e) {
             System.out.println("Could not save data: " + e.getMessage());
-            System.out.print("Exit without saving? (y/n): ");
-            return scanner.nextLine().trim().equalsIgnoreCase("y");
+            return input.confirm("Exit without saving?");
         }
     }
 }

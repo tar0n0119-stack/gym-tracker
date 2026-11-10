@@ -6,6 +6,7 @@ import hu.aron.gymtracker.persistence.InMemoryRepository;
 import hu.aron.gymtracker.persistence.StorageException;
 import hu.aron.gymtracker.service.WorkoutService;
 import hu.aron.gymtracker.ui.ConsoleMenu;
+import hu.aron.gymtracker.ui.InputReader;
 
 import java.nio.file.Path;
 import java.util.Scanner;
@@ -24,6 +25,6 @@ public class Main {
             System.out.println("Starting with an empty history.");
         }
 
-        new ConsoleMenu(service, new Scanner(System.in)).run();
+        new ConsoleMenu(service, new InputReader(new Scanner(System.in))).run();
     }
 }

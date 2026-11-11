@@ -4,8 +4,10 @@ import hu.aron.gymtracker.domain.Workout;
 import hu.aron.gymtracker.persistence.CsvWorkoutStorage;
 import hu.aron.gymtracker.persistence.InMemoryRepository;
 import hu.aron.gymtracker.persistence.StorageException;
+import hu.aron.gymtracker.service.PRTracker;
 import hu.aron.gymtracker.service.WorkoutService;
 import hu.aron.gymtracker.ui.ConsoleMenu;
+import hu.aron.gymtracker.ui.ConsoleNotifier;
 import hu.aron.gymtracker.ui.InputReader;
 
 import java.nio.file.Path;
@@ -15,7 +17,9 @@ public class Main {
 
     public static void main(String[] args) {
         CsvWorkoutStorage storage = new CsvWorkoutStorage(Path.of("data", "workouts.csv"));
-        WorkoutService service = new WorkoutService(new InMemoryRepository<Workout>(), storage);
+        PRTracker prTracker = new PRTracker();
+        prTracker.addListener(new ConsoleNotifier());
+        WorkoutService service = new WorkoutService(new InMemoryRepository<Workout>(), storage, prTracker);
 
         try {
             int count = service.loadData();

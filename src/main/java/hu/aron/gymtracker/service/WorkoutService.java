@@ -1,5 +1,6 @@
 package hu.aron.gymtracker.service;
 
+import hu.aron.gymtracker.domain.Exercise;
 import hu.aron.gymtracker.domain.Workout;
 import hu.aron.gymtracker.persistence.CsvWorkoutStorage;
 import hu.aron.gymtracker.persistence.Repository;
@@ -11,18 +12,23 @@ public class WorkoutService {
 
     private final Repository<Workout> repository;
     private final CsvWorkoutStorage storage;
+    private final PRTracker prTracker;
 
-    public WorkoutService(Repository<Workout> repository, CsvWorkoutStorage storage) {
-        if (repository == null || storage == null) {
-            throw new IllegalArgumentException("Repository and storage are required");
+    public WorkoutService(Repository<Workout> repository, CsvWorkoutStorage storage, PRTracker prTracker) {
+        if (repository == null || storage == null || prTracker == null) {
+            throw new IllegalArgumentException("Repository, storage and PR tracker are required");
         }
         this.repository = repository;
         this.storage = storage;
+        this.prTracker = prTracker;
     }
 
     public Workout logWorkout(Workout workout) {
         if (workout == null) {
             throw new IllegalArgumentException("Workout cannot be null");
+        }
+        for (Exercise exercise : workout.getExercises()) {
+            prTracker.check(exercise);
         }
         return repository.save(workout);
     }
@@ -48,6 +54,9 @@ public class WorkoutService {
         List<Workout> loaded = storage.load();
         for (Workout workout : loaded) {
             repository.save(workout);
+            for (Exercise exercise : workout.getExercises()) {
+                prTracker.record(exercise);
+            }
         }
         return loaded.size();
     }

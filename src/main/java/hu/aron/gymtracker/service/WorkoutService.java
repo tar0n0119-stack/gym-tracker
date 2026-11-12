@@ -5,7 +5,7 @@ import hu.aron.gymtracker.domain.Workout;
 import hu.aron.gymtracker.persistence.CsvWorkoutStorage;
 import hu.aron.gymtracker.persistence.Repository;
 
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class WorkoutService {
@@ -39,8 +39,19 @@ public class WorkoutService {
     }
 
     public List<Workout> listWorkouts() {
+        return listWorkouts(WorkoutSort.DATE, false);
+    }
+
+    public List<Workout> listWorkouts(WorkoutSort sort, boolean descending) {
+        if (sort == null) {
+            throw new IllegalArgumentException("Sort order cannot be null");
+        }
+        Comparator<Workout> comparator = sort.getComparator().thenComparing(Workout::getId);
+        if (descending) {
+            comparator = comparator.reversed();
+        }
         List<Workout> workouts = repository.findAll();
-        Collections.sort(workouts);
+        workouts.sort(comparator);
         return workouts;
     }
 

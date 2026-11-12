@@ -10,6 +10,7 @@ import hu.aron.gymtracker.domain.exception.InvalidWorkoutException;
 import hu.aron.gymtracker.persistence.StorageException;
 import hu.aron.gymtracker.service.WorkoutNotFoundException;
 import hu.aron.gymtracker.service.WorkoutService;
+import hu.aron.gymtracker.service.WorkoutSort;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class ConsoleMenu {
                     case "1" -> logWorkout();
                     case "2" -> listWorkouts();
                     case "3" -> deleteWorkout();
+                    case "4" -> sortWorkouts();
                     case "0" -> running = !saveAndExit();
                     default -> System.out.println("Unknown option, try again.");
                 }
@@ -48,6 +50,7 @@ public class ConsoleMenu {
         System.out.println("1. Log workout");
         System.out.println("2. List workouts");
         System.out.println("3. Delete workout");
+        System.out.println("4. Sort workouts");
         System.out.println("0. Save and exit");
     }
 
@@ -100,7 +103,25 @@ public class ConsoleMenu {
     }
 
     private void listWorkouts() {
-        List<Workout> workouts = service.listWorkouts();
+        printWorkouts(service.listWorkouts());
+    }
+
+    private void sortWorkouts() {
+        WorkoutSort[] options = WorkoutSort.values();
+        System.out.println("Sort by:");
+        for (int i = 0; i < options.length; i++) {
+            System.out.println((i + 1) + ". " + options[i].getLabel());
+        }
+        int choice = input.readInt("Choose: ");
+        if (choice < 1 || choice > options.length) {
+            System.out.println("Unknown option, try again.");
+            return;
+        }
+        boolean descending = input.confirm("Descending order?");
+        printWorkouts(service.listWorkouts(options[choice - 1], descending));
+    }
+
+    private void printWorkouts(List<Workout> workouts) {
         if (workouts.isEmpty()) {
             System.out.println("No workouts logged yet.");
             return;

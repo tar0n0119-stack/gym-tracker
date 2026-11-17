@@ -1,0 +1,192 @@
+@startuml class-diagram
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultFontName SansSerif
+skinparam classAttributeIconSize 0
+skinparam nodesep 45
+skinparam ranksep 55
+skinparam class {
+  BackgroundColor White
+  BorderColor #333333
+  ArrowColor #333333
+}
+skinparam package {
+  BorderColor #888888
+  FontColor #333333
+  BackgroundColor #F7F7F7
+}
+hide empty members
+
+title gym-tracker - class diagram
+
+package "hu.pte.mik.gymtracker.ui" as ui {
+  class ConsoleMenu {
+    - service : WorkoutService
+    - input : InputReader
+    + run() : void
+  }
+
+  class InputReader {
+    - scanner : Scanner
+    + readText(prompt : String) : String
+    + readInt(prompt : String) : int
+    + readDouble(prompt : String) : double
+    + readDate(prompt : String) : LocalDate
+    + confirm(prompt : String) : boolean
+  }
+
+  class ConsoleNotifier <<ConcreteObserver>> #DDEBF7 {
+    + onNewRecord(exerciseName : String, previousBest : double, newBest : double) : void
+  }
+
+  class InputClosedException <<exception>>
+}
+
+package "hu.pte.mik.gymtracker.service" as service {
+  class WorkoutService {
+    - repository : Repository<Workout>
+    - storage : CsvWorkoutStorage
+    - prTracker : PRTracker
+    + logWorkout(workout : Workout) : Workout
+    + findWorkout(id : int) : Workout
+    + listWorkouts() : List<Workout>
+    + listWorkouts(sort : WorkoutSort, descending : boolean) : List<Workout>
+    + deleteWorkout(id : int) : void
+    + isValidExerciseName(name : String) : boolean
+    + loadData() : int
+    + saveData() : void
+  }
+
+  enum WorkoutSort {
+    DATE
+    TOTAL_VOLUME
+    EXERCISE_COUNT
+    - label : String
+    - comparator : Comparator<Workout>
+    + getLabel() : String
+    + getComparator() : Comparator<Workout>
+  }
+
+  class PRTracker <<Subject>> #DDEBF7 {
+    - bestVolumes : Map<String, Double>
+    - listeners : List<PRListener>
+    + addListener(listener : PRListener) : void
+    + removeListener(listener : PRListener) : void
+    + record(exercise : Exercise) : void
+    + check(exercise : Exercise) : boolean
+  }
+
+  interface PRListener <<Observer>> #DDEBF7 {
+    + onNewRecord(exerciseName : String, previousBest : double, newBest : double) : void
+  }
+
+  class WorkoutNotFoundException <<exception>>
+}
+
+package "hu.pte.mik.gymtracker.domain" as domain {
+  interface Identifiable {
+    + getId() : int
+    + setId(id : int) : void
+  }
+
+  class Workout {
+    - id : int
+    - date : LocalDate
+    - exercises : List<Exercise>
+    + addExercise(exercise : Exercise) : void
+    + getExercises() : List<Exercise>
+    + getTotalVolume() : double
+    + compareTo(other : Workout) : int
+  }
+
+  abstract class Exercise {
+    - name : String
+    + getName() : String
+    + {abstract} calculateVolume() : double
+    + {abstract} getType() : String
+    # {static} requirePositive(value : int, fieldName : String) : void
+  }
+
+  class StrengthExercise {
+    - sets : int
+    - reps : int
+    - weightKg : double
+    + calculateVolume() : double
+    + getType() : String
+  }
+
+  class CardioExercise {
+    - distanceKm : double
+    - durationMin : int
+    + getPaceMinPerKm() : double
+    + calculateVolume() : double
+    + getType() : String
+  }
+
+  class BodyweightExercise {
+    - sets : int
+    - reps : int
+    + calculateVolume() : double
+    + getType() : String
+  }
+
+  class InvalidWorkoutException <<exception>>
+  class InvalidExerciseException <<exception>>
+}
+
+package "hu.pte.mik.gymtracker.persistence" as persistence {
+  interface "Repository<T extends Identifiable>" as Repository {
+    + findAll() : List<T>
+    + findById(id : int) : Optional<T>
+    + save(item : T) : T
+    + delete(id : int) : boolean
+  }
+
+  class "InMemoryRepository<T extends Identifiable>" as InMemoryRepository {
+    - store : Map<Integer, T>
+    - nextId : int
+  }
+
+  class CsvWorkoutStorage {
+    - file : Path
+    + canStoreName(name : String) : boolean
+    + save(workouts : List<Workout>) : void
+    + load() : List<Workout>
+  }
+
+  class StorageException <<exception>>
+}
+
+class Main {
+  + {static} main(args : String[]) : void
+}
+
+Main ..> ConsoleMenu : creates
+ConsoleMenu --> "1" InputReader
+ConsoleMenu --> "1" WorkoutService
+
+WorkoutService --> "1" PRTracker
+WorkoutService ..> WorkoutSort
+PRTracker o--> "0..*" PRListener : listeners
+ConsoleNotifier ..|> PRListener
+
+WorkoutService --> "1" Repository
+WorkoutService --> "1" CsvWorkoutStorage
+InMemoryRepository ..|> Repository
+Repository ..> Identifiable
+
+Workout ..|> Identifiable
+Workout *--> "0..*" Exercise : exercises
+Exercise <|-- StrengthExercise
+Exercise <|-- CardioExercise
+Exercise <|-- BodyweightExercise
+CsvWorkoutStorage ..> Workout : reads / writes
+
+legend bottom left
+  + public   - private   # protected   underlined = static   italic = abstract
+  Blue classes form the Observer pattern.
+  Classes marked <<exception>> extend RuntimeException.
+  Workout also implements Comparable<Workout>.
+  Constructors, simple getters and private helper methods are omitted.
+endlegend
+@enduml

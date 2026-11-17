@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="793px" preserveAspectRatio="none" style="width:971px;height:793px;" version="1.1" viewBox="0 0 971 793" width="971px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="312" x="328.5" y="17.4375">gym-tracker - architecture overview</text><!--cluster root--><rect fill="#FFFFFF" height="76" style="stroke: #888888; stroke-width: 1.5;" width="175" x="508" y="45.7793"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="159" x="516" y="61.3418">hu.pte.mik.gymtracker</text><!--cluster ui--><rect fill="#F7F7F7" height="93" style="stroke: #888888; stroke-width: 1.5;" width="356" x="537" y="170.7793"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="13" x="708.5" y="186.3418">ui</text><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="182" x="624" y="203.2813">(console input and output)</text><!--cluster service--><rect fill="#F7F7F7" height="93" style="stroke: #888888; stroke-width: 1.5;" width="596" x="339" y="312.7793"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="50" x="612" y="328.3418">service</text><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="124" x="575" y="345.2813">(application logic)</text><!--cluster domain--><rect fill="#F7F7F7" height="267" style="stroke: #888888; stroke-width: 1.5;" width="422" x="22" y="454.7793"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="52" x="207" y="470.3418">domain</text><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="174" x="146" y="487.2813">(workouts and exercises)</text><!--cluster persistence--><rect fill="#F7F7F7" height="179" style="stroke: #888888; stroke-width: 1.5;" width="257" x="468" y="454.7793"/><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="81" x="556" y="470.3418">persistence</text><text fill="#333333" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="93" x="550" y="487.2813">(storing data)</text><!--class Main--><rect fill="#FFFFFF" height="24.5195" id="Main" style="stroke: #333333; stroke-width: 1.5;" width="34" x="578" y="80.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="28" x="581" y="97.4043">Main</text><!--class ConsoleMenu--><rect fill="#FFFFFF" height="24.5195" id="ConsoleMenu" style="stroke: #333333; stroke-width: 1.5;" width="84" x="553" y="222.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="78" x="556" y="239.4043">ConsoleMenu</text><!--class InputReader--><rect fill="#FFFFFF" height="24.5195" id="InputReader" style="stroke: #333333; stroke-width: 1.5;" width="75" x="672.5" y="222.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="69" x="675.5" y="239.4043">InputReader</text><!--class ConsoleNotifier--><rect fill="#DDEBF7" height="24.5195" id="ConsoleNotifier" style="stroke: #333333; stroke-width: 1.5;" width="94" x="783" y="222.7793"/><rect fill="#DDEBF7" height="24.5195" style="stroke: #333333; stroke-width: 1.5;" width="94" x="783" y="222.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="88" x="786" y="239.4043">ConsoleNotifier</text><!--class WorkoutService--><rect fill="#FFFFFF" height="24.5195" id="WorkoutService" style="stroke: #333333; stroke-width: 1.5;" width="99" x="468.5" y="364.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="93" x="471.5" y="381.4043">WorkoutService</text><!--class WorkoutSort--><rect fill="#FFFFFF" height="24.5195" id="WorkoutSort" style="stroke: #333333; stroke-width: 1.5;" width="79" x="354.5" y="364.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="73" x="357.5" y="381.4043">WorkoutSort</text><!--class PRTracker--><rect fill="#DDEBF7" height="24.5195" id="PRTracker" style="stroke: #333333; stroke-width: 1.5;" width="68" x="700" y="364.7793"/><rect fill="#DDEBF7" height="24.5195" style="stroke: #333333; stroke-width: 1.5;" width="68" x="700" y="364.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="62" x="703" y="381.4043">PRTracker</text><!--class PRListener--><rect fill="#DDEBF7" height="24.5195" id="PRListener" style="stroke: #333333; stroke-width: 1.5;" width="68" x="851" y="364.7793"/><rect fill="#DDEBF7" height="24.5195" style="stroke: #333333; stroke-width: 1.5;" width="68" x="851" y="364.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="62" x="854" y="381.4043">PRListener</text><!--class Workout--><rect fill="#FFFFFF" height="24.5195" id="Workout" style="stroke: #333333; stroke-width: 1.5;" width="55" x="284.5" y="506.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="49" x="287.5" y="523.4043">Workout</text><!--class Exercise--><rect fill="#FFFFFF" height="24.5195" id="Exercise" style="stroke: #333333; stroke-width: 1.5;" width="55" x="229.5" y="592.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="49" x="232.5" y="609.4043">Exercise</text><!--class StrengthExercise--><rect fill="#FFFFFF" height="24.5195" id="StrengthExercise" style="stroke: #333333; stroke-width: 1.5;" width="104" x="38" y="680.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="98" x="41" y="697.4043">StrengthExercise</text><!--class CardioExercise--><rect fill="#FFFFFF" height="24.5195" id="CardioExercise" style="stroke: #333333; stroke-width: 1.5;" width="93" x="177.5" y="680.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="87" x="180.5" y="697.4043">CardioExercise</text><!--class BodyweightExercise--><rect fill="#FFFFFF" height="24.5195" id="BodyweightExercise" style="stroke: #333333; stroke-width: 1.5;" width="122" x="306" y="680.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="116" x="309" y="697.4043">BodyweightExercise</text><!--class Repository--><rect fill="#FFFFFF" height="24.5195" id="Repository" style="stroke: #333333; stroke-width: 1.5;" width="67" x="484.5" y="506.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="61" x="487.5" y="523.4043">Repository</text><!--class InMemoryRepository--><rect fill="#FFFFFF" height="24.5195" id="InMemoryRepository" style="stroke: #333333; stroke-width: 1.5;" width="125" x="484.5" y="592.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="119" x="487.5" y="609.4043">InMemoryRepository</text><!--class CsvWorkoutStorage--><rect fill="#FFFFFF" height="24.5195" id="CsvWorkoutStorage" style="stroke: #333333; stroke-width: 1.5;" width="122" x="587" y="506.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="116" x="590" y="523.4043">CsvWorkoutStorage</text><!--link Main to ConsoleMenu--><path d="M595,106.2193 C595,131.1393 595,188.7593 595,217.4393 " fill="none" id="Main-ConsoleMenu" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="595,222.7693,599,213.7693,595,217.7693,591,213.7693,595,222.7693" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="34" x="596" y="151.373">starts</text><!--link ConsoleMenu to WorkoutService--><path d="M588.44,248.2193 C574.61,273.3393 542.51,331.7193 526.87,360.1493 " fill="none" id="ConsoleMenu-WorkoutService" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="524.33,364.7693,532.1826,358.8248,526.7473,360.3925,525.1796,354.9572,524.33,364.7693" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="30" x="571" y="293.373">uses</text><!--link WorkoutService to Workout--><path d="M500.29,389.8093 C486.96,398.5193 468.27,410.8093 452,421.7793 C409.48,450.4393 360.2,484.6393 332.92,503.6593 " fill="none" id="WorkoutService-Workout" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="328.73,506.5793,338.4039,504.7312,332.8368,503.7273,333.8407,498.1603,328.73,506.5793" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="56" x="453" y="435.373">manages</text><!--link WorkoutService to Repository--><path d="M518,390.2193 C518,415.1393 518,472.7593 518,501.4393 " fill="none" id="WorkoutService-Repository" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="518,506.7693,522,497.7693,518,501.7693,514,497.7693,518,506.7693" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="54" x="519" y="435.373">stores in</text><!--link WorkoutService to CsvWorkoutStorage--><path d="M539.07,389.8393 C552.31,397.7493 569.25,409.0693 582,421.7793 C606.75,446.4593 628.07,481.5993 639.37,501.9593 " fill="none" id="WorkoutService-CsvWorkoutStorage" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="641.89,506.5593,641.0539,496.746,639.4788,502.1791,634.0456,500.604,641.89,506.5593" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="66" x="597" y="435.373">saves with</text><!--link WorkoutService to PRTracker--><path d="M567.55,377.2793 C606.14,377.2793 658.96,377.2793 694.67,377.2793 " fill="none" id="WorkoutService-PRTracker" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="699.81,377.2793,690.81,373.2793,694.81,377.2793,690.81,381.2793,699.81,377.2793" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="96" x="585.75" y="370.873">checks records</text><!--link PRTracker to PRListener--><path d="M768.26,377.2793 C791.34,377.2793 821.82,377.2793 845.85,377.2793 " fill="none" id="PRTracker-PRListener" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="850.87,377.2793,841.87,373.2793,845.87,377.2793,841.87,381.2793,850.87,377.2793" style="stroke: #333333; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="46" x="786.5" y="370.873">notifies</text><!--link ConsoleNotifier to PRListener--><path d="M834.69,248.2193 C843.13,269.7093 861.13,315.5293 873.15,346.1193 " fill="none" id="ConsoleNotifier-PRListener" style="stroke: #333333; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="879.68,343.5893,880.48,364.7693,866.65,348.7093,879.68,343.5893" style="stroke: #333333; stroke-width: 1.0;"/><!--link Workout to Exercise--><path d="M297.06,543.0893 C286.55,559.1393 272.93,579.9493 264.58,592.6993 " fill="none" id="Workout-Exercise" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="#333333" points="304.35,531.9593,297.7166,534.7874,297.7759,541.9983,304.4093,539.1702,304.35,531.9593" style="stroke: #333333; stroke-width: 1.0;"/><!--link Exercise to StrengthExercise--><path d="M216.4,627.1893 C183.71,644.0193 138.98,667.0493 112.43,680.7293 " fill="none" id="Exercise-StrengthExercise" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="none" points="213.49,620.8093,234.48,617.8793,219.9,633.2593,213.49,620.8093" style="stroke: #333333; stroke-width: 1.0;"/><!--link Exercise to CardioExercise--><path d="M245.35,636.6393 C239.52,651.8293 232.8,669.3393 228.49,680.5893 " fill="none" id="Exercise-CardioExercise" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="none" points="238.85,634.0393,252.55,617.8793,251.92,639.0593,238.85,634.0393" style="stroke: #333333; stroke-width: 1.0;"/><!--link Exercise to BodyweightExercise--><path d="M287.72,630.2993 C308.71,646.7093 335.6,667.7293 352.05,680.5893 " fill="none" id="Exercise-BodyweightExercise" style="stroke: #333333; stroke-width: 1.0;"/><polygon fill="none" points="283.28,635.7093,271.84,617.8793,291.9,624.6793,283.28,635.7093" style="stroke: #333333; stroke-width: 1.0;"/><!--link Repository to InMemoryRepository--><path d="M528.59,550.9493 C533.6,565.4693 539.29,581.9493 543,592.6993 " fill="none" id="Repository-InMemoryRepository" style="stroke: #333333; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="521.94,553.1493,522.03,531.9593,535.18,548.5793,521.94,553.1493" style="stroke: #333333; stroke-width: 1.0;"/><rect fill="#DDDDDD" height="26.9395" rx="5" ry="5" style="stroke: #000000; stroke-width: 1.0;" width="268" x="692" y="755.7793"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="256" x="698" y="774.3418">Blue classes form the Observer pattern</text><!--
+@startuml architecture-overview
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultFontName SansSerif
+skinparam classAttributeIconSize 0
+skinparam class {
+  BackgroundColor White
+  BorderColor #333333
+  ArrowColor #333333
+}
+skinparam package {
+  BorderColor #888888
+  FontColor #333333
+}
+hide members
+hide circle
+
+title gym-tracker - architecture overview
+
+package "hu.pte.mik.gymtracker" as root {
+  class Main
+}
+
+package "ui\n(console input and output)" as ui #F7F7F7 {
+  class ConsoleMenu
+  class InputReader
+  class ConsoleNotifier #DDEBF7
+}
+
+package "service\n(application logic)" as service #F7F7F7 {
+  class WorkoutService
+  class WorkoutSort
+  class PRTracker #DDEBF7
+  class PRListener #DDEBF7
+}
+
+package "domain\n(workouts and exercises)" as domain #F7F7F7 {
+  class Workout
+  class Exercise
+  class StrengthExercise
+  class CardioExercise
+  class BodyweightExercise
+}
+
+package "persistence\n(storing data)" as persistence #F7F7F7 {
+  class Repository
+  class InMemoryRepository
+  class CsvWorkoutStorage
+}
+
+Main -down-> ConsoleMenu : starts
+ConsoleMenu -down-> WorkoutService : uses
+WorkoutService -down-> Workout : manages
+WorkoutService -down-> Repository : stores in
+WorkoutService -down-> CsvWorkoutStorage : saves with
+WorkoutService -right-> PRTracker : checks records
+PRTracker -right-> PRListener : notifies
+ConsoleNotifier .down.|> PRListener
+Workout *-down- Exercise
+Exercise <|-down- StrengthExercise
+Exercise <|-down- CardioExercise
+Exercise <|-down- BodyweightExercise
+InMemoryRepository .up.|> Repository
+
+legend right
+  Blue classes form the Observer pattern
+endlegend
+@enduml
+
+PlantUML version 1.2019.06(Fri May 24 17:10:25 UTC 2019)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 21.0.12.1+1-1-24.04.4-Ubuntu
+Operating System: Linux
+OS Version: 6.18.44-fc-v553
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

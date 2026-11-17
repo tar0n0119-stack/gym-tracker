@@ -1,0 +1,68 @@
+@startuml architecture-overview
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultFontName SansSerif
+skinparam classAttributeIconSize 0
+skinparam class {
+  BackgroundColor White
+  BorderColor #333333
+  ArrowColor #333333
+}
+skinparam package {
+  BorderColor #888888
+  FontColor #333333
+}
+hide members
+hide circle
+
+title gym-tracker - architecture overview
+
+package "hu.pte.mik.gymtracker" as root {
+  class Main
+}
+
+package "ui\n(console input and output)" as ui #F7F7F7 {
+  class ConsoleMenu
+  class InputReader
+  class ConsoleNotifier #DDEBF7
+}
+
+package "service\n(application logic)" as service #F7F7F7 {
+  class WorkoutService
+  class WorkoutSort
+  class PRTracker #DDEBF7
+  class PRListener #DDEBF7
+}
+
+package "domain\n(workouts and exercises)" as domain #F7F7F7 {
+  class Workout
+  class Exercise
+  class StrengthExercise
+  class CardioExercise
+  class BodyweightExercise
+}
+
+package "persistence\n(storing data)" as persistence #F7F7F7 {
+  class Repository
+  class InMemoryRepository
+  class CsvWorkoutStorage
+}
+
+Main -down-> ConsoleMenu : starts
+ConsoleMenu -down-> WorkoutService : uses
+WorkoutService -down-> Workout : manages
+WorkoutService -down-> Repository : stores in
+WorkoutService -down-> CsvWorkoutStorage : saves with
+WorkoutService -right-> PRTracker : checks records
+PRTracker -right-> PRListener : notifies
+ConsoleNotifier .down.|> PRListener
+Workout *-down- Exercise
+Exercise <|-down- StrengthExercise
+Exercise <|-down- CardioExercise
+Exercise <|-down- BodyweightExercise
+InMemoryRepository .up.|> Repository
+
+legend right
+  Blue classes form the Observer pattern
+endlegend
+@enduml
